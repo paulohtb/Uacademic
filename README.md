@@ -1,2 +1,2 @@
 # Uacademic
-projeto final de um sistema acadêmico para a cadeira de Tópicos para Java Web
+projeto final para a cadeira de Tópicos para Java Web
