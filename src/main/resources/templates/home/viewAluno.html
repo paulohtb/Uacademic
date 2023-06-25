@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <title>Aluno View</title>
+
+    <style>
+        body {
+            padding: 10px;
+            background-size: cover;
+            font-family: sans-serif;
+        }
+
+        .card {
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-header {
+            background-color: #2d2d2d;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .btnA {
+            background-color: #3498db;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body th:href="@{/}" th:style="'background-image: url('+@{/uni.jpg}+');'">
+    <div class="card">
+        <div class="card-header th">Informações do Aluno</div>
+        <div class="card-body">
+            <table class="table" id="alunosTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cadeiras</th>
+                        <th>Email</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td th:text="${aluno.nome}"></td>
+                    <td>
+                        <ul>
+                            <li th:each="cadeira : ${aluno.cadeiras}" th:text="${cadeira.nome}"></li>
+                        </ul>
+                    </td>
+                    <td th:text="${aluno.email}"></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

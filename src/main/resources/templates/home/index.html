@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <title>Uacademic</title>
+
+    <style>
+        body {
+            padding: 10px;
+            background-image: url("uni.jpg");
+            background-size: cover;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            height: 50%;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .card-header {
+            background-color: #2d2d2d;
+            color: white;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        .btnA {
+            width: 50%;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+        }
+
+        .btn-group-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                <div class="btn-group-vertical" role="group" aria-label="Opções de Login">
+                    <button type="button" class="btnA" id="btnAluno">Aluno</button>
+                    <button type="button" class="btnA" id="btnProfessor">Professor</button>
+                    <button type="button" class="btnA" id="btnAdministrador">Administrador</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="login-form" id="alunoForm">
+                <div class="card-header">Login como Aluno</div>
+                <form action="/login/aluno" method="post">
+                    <div class="form-group">
+                        <label for="alunoEmail">Email:</label>
+                        <input type="email" class="form-control" id="alunoEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alunoSenha">Senha:</label>
+                        <input type="password" class="form-control" id="alunoSenha" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn btnA">Login</button>
+                </form>
+            </div>
+
+            <div class="login-form" id="professorForm">
+                <div class="card-header">Login como Professor</div>
+                <form action="/login/professor" method="post">
+                    <div class="form-group">
+                        <label for="professorEmail">Email:</label>
+                        <input type="email" class="form-control" id="professorEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="professorSenha">Senha:</label>
+                        <input type="password" class="form-control" id="professorSenha" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn btnA">Login</button>
+                </form>
+            </div>
+
+            <div class="login-form" id="administradorForm">
+                <div class="card-header">Login como Administrador</div>
+                <form action="/login/administrador" method="post">
+                    <div class="form-group">
+                        <label for="adminEmail">Email:</label>
+                        <input type="email" class="form-control" id="adminEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminSenha">Senha:</label>
+                        <input type="password" class="form-control" id="adminSenha" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn btnA">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Mostrar formulário de login de acordo com o botão clicado
+            $("#btnAluno").click(function () {
+                $(".login-form").removeClass("active");
+                $("#alunoForm").addClass("active");
+            });
+
+            $("#btnProfessor").click(function () {
+                $(".login-form").removeClass("active");
+                $("#professorForm").addClass("active");
+            });
+
+            $("#btnAdministrador").click(function () {
+                $(".login-form").removeClass("active");
+                $("#administradorForm").addClass("active");
+            });
+        });
+    </script>
+</body>
+
+</html>

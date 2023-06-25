@@ -1,0 +1,251 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <title>Administradores</title>
+
+    <style>
+        body {
+            padding: 10px;
+            background-image: url("uni.jpg");
+            background-size: contain;
+            font-family: sans-serif;
+        }
+
+        .card {
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-header {
+            background-color: #2d2d2d;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .th,
+        tbody {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 15px;
+            border-radius: 4px;
+            border: none;
+            color: black;
+        }
+
+        .btnAm {
+            background-color: #f6c23e;
+            color:white;
+        }
+
+        .btnE {
+            background-color: #e74a3b;
+            color:white;
+        }
+
+        .btnA {
+            background-color: #3498db;
+            color:white;
+        }
+
+        .container-fluid {
+            margin-top: 20px;
+        }
+
+        .custom-btn-container {
+            margin-right: auto;
+            margin-left: 10px;
+        }
+
+        .dataTables_info {
+            display: none;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header th">Lista de Alunos</div>
+                    <div class="card-body">
+                        <table class="table" id="alunosTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Cadeiras</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="aluno : ${alunos}">
+                                    <td th:text="${aluno.aid}"></td>
+                                    <td th:text="${aluno.nome}"></td>
+                                    <td>
+                                        <ul>
+                                            <li th:each="cadeira : ${aluno.cadeiras}" th:text="${cadeira.nome}"></li>
+                                        </ul>
+                                    </td>
+                                    <td th:text="${aluno.email}"></td>
+                                    <td><a th:href="@{'/alunos/' + ${aluno.aid}}" class="btn btnAm">Alterar</a></td>
+                                    <td><a href="#" th:onclick="'if(confirm(\'Confirma a exclusão?\')) {
+                                        window.location.href = \'' + @{/alunos/{id}(id=${aluno.aid})} + '/excluirAluno\' }'" class="btn btnE">Excluir</a></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <td><a href="/novoAluno" class="btn btnA">Adicionar Aluno</a></td>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header th">Lista de Professores</div>
+                    <div class="card-body">
+                        <table class="table" id="professoresTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Cadeiras</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="professor : ${professores}">
+                                    <td th:text="${professor.pid}"></td>
+                                    <td th:text="${professor.nome}"></td>
+                                    <td th:text="${professor.email}"></td>
+                                    <td>
+                                        <ul>
+                                            <li th:each="cadeira : ${professor.cadeiras}" th:text="${cadeira.nome}"></li>
+                                        </ul>
+                                    </td>
+                                    <td><a th:href="@{'/professores/' + ${professor.pid}}" class="btn btnAm">Alterar</a></td>
+                                    <td><a href="#" th:onclick="'if(confirm(\'Confirma a exclusão?\')) {
+                                        window.location.href = \'' + @{/professores/{id}(id=${professor.pid})} + '/excluirProfessor\' }'" class="btn btnE">Excluir</a></td>
+                                </tr>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <td><a href="/novoProfessor" class="btn btnA">Adicionar Professor</a></td>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header th">Lista de Cadeiras</div>
+                    <div class="card-body">
+                        <table class="table" id="cadeirasTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Professor</th>
+                                    <th>Alunos</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cadeira : ${cadeiras}">
+                                    <td th:text="${cadeira.cid}"></td>
+                                    <td th:text="${cadeira.nome}"></td>
+                                    <td th:text="${cadeira.professor.nome}"></td>
+                                    <td>
+                                        <ul>
+                                            <li th:each="aluno : ${cadeira.alunos}" th:text="${aluno.nome}"></li>
+                                        </ul>
+                                    </td>
+                                    <td><a th:href="@{'/cadeiras/' + ${cadeira.cid}}" class="btn btnAm">Alterar</a></td>
+                                    <td><a href="#" th:onclick="'if(confirm(\'Confirma a exclusão?\')) {
+                                        window.location.href = \'' + @{/cadeiras/{id}(id=${cadeira.cid})} + '/excluirCadeira\' }'" class="btn btnE">Excluir</a></td>
+                                </tr>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <td><a href="/novaCadeira" class="btn btnA">Adicionar Cadeira</a></td>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header th">Lista de Administradores</div>
+                    <div class="card-body">
+                        <table class="table" id="administradoresTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="administrador : ${administradores}">
+                                    <td th:text="${administrador.id}"></td>
+                                    <td th:text="${administrador.nome}"></td>
+                                    <td th:text="${administrador.email}"></td>
+                                    <td><a th:href="@{'/administradores/' + ${administrador.id}}" class="btn btnAm">Alterar</a></td>
+                                    <td><a href="#" th:onclick="'if(confirm(\'Confirma a exclusão?\')) {
+                                        window.location.href = \'' + @{/administradores/{id}(id=${administrador.id})} + '/excluirAdmin\' }'" class="btn btnE">Excluir</a></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <td><a href="/novoAdministrador" class="btn btnA">Adicionar Administrador</a></td>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#alunosTable').DataTable();
+            $('#professoresTable').DataTable();
+            $('#cadeirasTable').DataTable();
+            $('#administradoresTable').DataTable();
+        });
+    </script>
+
+</body>
+
+</html>
